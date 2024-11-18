@@ -91,4 +91,4 @@ MVPリリース時に作りたいもの
     理由: ユーザー獲得のための宣伝。
 
 ### 画面遷移図
-Figma：https://www.figma.com/design/0q6ZBotTSE3YmrZQ1VMUIv/%E3%81%A1%E3%81%84%E3%81%8B%E3%82%8F%E3%82%B0%E3%83%83%E3%82%BA%E5%8F%8E%E9%9B%86%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&t=HNoU5EB6mYs1M3pq-1
+Figma:https://www.figma.com/design/0q6ZBotTSE3YmrZQ1VMUIv/%E3%81%A1%E3%81%84%E3%81%8B%E3%82%8F%E3%82%B0%E3%83%83%E3%82%BA%E5%8F%8E%E9%9B%86%E7%94%BB%E9%9D%A2%E9%81%B7%E7%A7%BB%E5%9B%B3?node-id=0-1&t=HNoU5EB6mYs1M3pq-1
