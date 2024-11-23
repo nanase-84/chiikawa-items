@@ -24,7 +24,7 @@
     "sass": "^1.81.0"
   },
   "engines": {
-  "node": "23.x"  // または使いたいバージョン
+  "node": "23.x"  
   },
   "browserslist": [
     "defaults"
