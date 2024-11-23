@@ -156,12 +156,6 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.7-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.7-x86-linux)
-      racc (~> 1.4)
-    nokogiri (1.16.7-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.16.7-x86_64-linux)
-      racc (~> 1.4)
     pg (1.5.9)
     psych (5.2.0)
       stringio
@@ -261,9 +255,6 @@ PLATFORMS
   aarch64-linux
   arm-linux
   arm64-darwin
-  x86-linux
-  x86_64-darwin
-  x86_64-linux
 
 DEPENDENCIES
   bootsnap
