@@ -1,0 +1,38 @@
+services:
+  db:
+    image: mysql:8.0
+    platform: linux/amd64
+    environment:
+      TZ: Asia/Tokyo
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - 3307:3306
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/chiikawa_items
+      - bundle_data:/usr/local/bundle:cached
+      - node_modules:/chiikawa_items/node_modules
+    environment:
+      TZ: Asia/Tokyo
+      SELENIUM_DRIVER_URL: http://chrome:4444/wd/hub
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - chrome
+  chrome:
+    image: seleniarm/standalone-chromium:121.0
+    ports:
+      - 4444:4444
+volumes:
+  mysql_data:
+  bundle_data:
+  node_modules:
