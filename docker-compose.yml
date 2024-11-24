@@ -39,3 +39,4 @@ volumes:
   mysql_data:
   bundle_data:
   node_modules:
+  db_data:
