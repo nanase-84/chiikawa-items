@@ -52,7 +52,3 @@ production:
   <<: *default
   adapter: mysql2
   url: <%= ENV['DATABASE_URL'] %>
-  username: <%= ENV['JAWSDB_USERNAME'] %>
-  password: <%= ENV['JAWSDB_PASSWORD'] %>
-  host: <%= ENV['JAWSDB_HOST'] %>
-  
