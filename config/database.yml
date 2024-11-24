@@ -50,12 +50,9 @@ test:
 #
 production:
   <<: *default
-  dadapter: mysql2
-  encoding: utf8mb4
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   url: <%= ENV['DATABASE_URL'] %>
-  database: <%= URI.parse(ENV['JAWSDB_URL']).path[1..-1] %>
-  username: <%= URI.parse(ENV['JAWSDB_URL']).user %>
-  password: <%= URI.parse(ENV['JAWSDB_URL']).password %>
-  host: <%= URI.parse(ENV['JAWSDB_URL']).host %>
-  port: <%= URI.parse(ENV['JAWSDB_URL']).port %>
+  database: <%= URI.parse(ENV['DATABASE_URL']).path[1..-1] %>
+  username: <%= URI.parse(ENV['DATABASE_URL']).user %>
+  password: <%= URI.parse(ENV['DATABASE_URL']).password %>
+  host: <%= URI.parse(ENV['DATABASE_URL']).host %>
+  port: <%= URI.parse(ENV['DATABASE_URL']).port %>
