@@ -212,6 +212,8 @@ GEM
       io-console (~> 0.5)
     rexml (3.3.9)
     rubyzip (2.3.2)
+    sassc (2.4.0)
+      ffi (~> 1.9)
     securerandom (0.3.2)
     selenium-webdriver (4.26.0)
       base64 (~> 0.2)
@@ -271,6 +273,7 @@ DEPENDENCIES
   pg
   puma (>= 5.0)
   rails (~> 7.1.5)
+  sassc
   selenium-webdriver
   spring
   spring-watcher-listen
