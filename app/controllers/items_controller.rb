@@ -6,6 +6,8 @@ class ItemsController < ApplicationController
     @items = Item.all
   end
 
+  def top; end
+
   # GET /items/1 or /items/1.json
   def show
   end
