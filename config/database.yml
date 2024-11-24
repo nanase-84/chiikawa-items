@@ -50,7 +50,7 @@ test:
 #
 production:
   <<: *default
-  host: db
+  adapter: mysql2
   url: <%= ENV['DATABASE_URL'] %>
   username: <%= ENV['JAWSDB_USERNAME'] %>
   password: <%= ENV['JAWSDB_PASSWORD'] %>
