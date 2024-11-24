@@ -6,8 +6,6 @@ services:
       TZ: Asia/Tokyo
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: chiikawa_items_development
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
     volumes:
       - db_data:/var/lib/mysql
     ports:
