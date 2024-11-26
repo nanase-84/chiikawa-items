@@ -41,7 +41,8 @@
 /node_modules
 .DS_Storetmp/
 tmp/
-.DS_Store
+.DS_Store/
 .vscode/
 vendor/
 .env
+.keep/
