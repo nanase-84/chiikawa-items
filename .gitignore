@@ -36,6 +36,7 @@
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+!/app/assets/images/.keep
 
 /node_modules
 .DS_Storetmp/
