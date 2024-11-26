@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :users
   get "items", to: "items#top"
   root 'items#top'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -9,4 +10,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  resources :users, only: [:new, :create, :index]
 end
