@@ -1,0 +1,17 @@
+@charset "UTF-8";
+body {
+  font-family: "Itim", cursive;
+  background-color: #FFD4FD;
+  color: #15A3F5;
+  font-size: 16px;
+  margin: 0;
+  text-align: center;
+  /* h1のテキストを中央寄せ */ }
+
+h1 {
+  margin: 0; }
+
+@media screen and (max-width: 767px) {
+  body {
+    font-size: 1.0rem;
+    /* bodyのフォントサイズを変更 */ } }
