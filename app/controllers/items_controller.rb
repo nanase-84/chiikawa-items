@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  skip_before_action :require_login, only: %i[top]
   before_action :require_login, only: %i[new create edit update destroy]
   before_action :set_item, only: %i[ show edit update destroy ]
 
