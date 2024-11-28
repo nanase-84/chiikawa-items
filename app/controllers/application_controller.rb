@@ -1,22 +1,21 @@
 class ApplicationController < ActionController::Base
-   # 現在のユーザーを取得するメソッドをヘルパーメソッドとして使用可能にする
-   helper_method :current_user, :user_signed_in?
+  before_action :require_login
+  add_flash_types :success, :danger, :info, :warning
 
-   # 現在のユーザーを取得
-   def current_user
-     # セッションに保存されたユーザーIDをもとに、現在のユーザーを取得
-     @current_user ||= User.find_by(id: session[:user_id])
-   end
+  def current_user
+    @current_user ||= User.find_by(id: session[:user_id])
+  end
+  helper_method :current_user
 
-   # ユーザーがログインしているかどうかを判定
-   def user_signed_in?
-     current_user.present?
-   end
+  private
 
-   # ログインが必要なアクションで使用するフィルタ
-   def require_login
-     unless user_signed_in?
-       redirect_to new_user_path, alert: 'ログインしてください'
-     end
-   end
+  def require_login
+    return if logged_in?
+
+    redirect_to login_path
+  end
+
+  def not_authenticated
+    redirect_to login_path
+  end
 end
