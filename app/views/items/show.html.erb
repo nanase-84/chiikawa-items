@@ -1,10 +1,34 @@
-<p style="color: green"><%= notice %></p>
+<p style="color: blue;"><%= notice %></p>
+  <br>
+  <br>
+  <br>
+  <div>
+    <% if @item.image_url.present? %>
+      <%= image_tag(@item.image_url.url, size: "250x350", alt: @item.name) %>
+    <% else %>
+      <%= image_tag "no_image.png", size: "250x350", alt: "No image available" %>
+    <% end %>
+  </div>
+  <br>
+  <div>
+    <h3><%= @item.name %></h3> <!-- Display the item name -->
+    <br>
+    <p><%= @item.description %></p> <!-- Display the item description -->
+    <p><strong>保管場所</strong> <%= @item.storage %></p> <!-- Display the item storage -->
 
-<%= render @item %>
-
+    <p><strong>タグ</strong>
+      <% if @item.tags.any? %> <!-- Check if the item has any tags -->
+        <%= @item.tags.pluck(:name).join(', ') %> <!-- Display the tags as a comma-separated list -->
+      <% else %>
+        No tags available.
+      <% end %>
+    </p>
+  </div>
+  <br>
+  <br>
 <div>
-  <%= link_to "Edit this item", edit_item_path(@item) %> |
-  <%= link_to "Back to items", items_path %>
+  <%= link_to "編集", edit_item_path(@item) %> |
+  <%= link_to "Top", root_path %>
 
-  <%= button_to "Destroy this item", @item, method: :delete %>
+  <%= button_to "!アイテムを消す", @item, method: :delete %>
 </div>

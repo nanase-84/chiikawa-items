@@ -19,3 +19,24 @@ h1 {
 .nav-item.dropdown-slide li {
     list-style: none;
   }
+
+ /* グローバルなスタイルシートに記述する場合 */
+button {
+  /* ボタンの共通スタイル */
+  background-color: #8515F5;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px; /* 角を丸くする */
+  cursor: pointer; /* カーソルをポインタに変更 */
+}
+
+button a {
+  /* リンクのスタイル */
+  color: inherit;
+  text-decoration: none;
+}
+
+.button-wrapper {
+  margin-top: 20px; /* ボタンの上マージンを20pxに設定 */
+}

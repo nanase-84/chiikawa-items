@@ -38,10 +38,10 @@
 !/app/assets/images/.keep
 
 /node_modules
-.DS_Storetmp/
-tmp/
-.DS_Store/
-.vscode/
-vendor/
-.env
-.keep/
+/.DS_Storetmp/
+/tmp
+/.DS_Store
+/.vscode
+/vendor
+/.env
+/.keep

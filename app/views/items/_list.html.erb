@@ -1,0 +1,17 @@
+<div class="container pt-3">
+  <div class="row">
+    <div class="col-lg-10 offset-lg-1">
+        <% @items.each do |item| %>
+        <!-- サムネイル画像 -->
+            <%= link_to item_path(item) do %>  <!-- Wrap the image with a link to the item show page -->
+                <% if item.image_url? %>
+                    <%= image_tag(item.image_url.url, size: "250x350", alt: item.name) %>
+                <% else %>
+                    <%= image_tag("no_image.png", size: "250x350", alt: "No image available") %>
+                <% end %>
+            <% end %>
+        <% end %>
+    </div>
+ </div>
+</div>
+

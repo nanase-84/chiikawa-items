@@ -1,17 +1,25 @@
 class ItemsController < ApplicationController
-  skip_before_action :require_login, only: %i[top]
-  before_action :require_login, only: %i[new create edit update destroy]
-  before_action :set_item, only: %i[ show edit update destroy ]
+skip_before_action :require_login, only: %i[top]
+before_action :require_login, only: %i[new create edit update destroy]
+before_action :set_item, only: %i[show edit update destroy]
 
   # GET /items or /items.json
   def index
     @items = Item.all
   end
 
-  def top; end
+  def top
+    if params[:tag].present?
+      @items = Item.joins(:tags).where(tags: { name: params[:tag] }).order(created_at: :desc).page(params[:page]).per(6)
+    else
+      @items = Item.includes(:tags).order(created_at: :desc).page(params[:page]).per(6)
+    end
+  end
 
   # GET /items/1 or /items/1.json
-  def show; end
+  def show
+    @item = Item.find(params[:id])
+  end
 
   # GET /items/new
   def new
@@ -24,45 +32,38 @@ class ItemsController < ApplicationController
   # POST /items or /items.json
   def create
     @item = Item.new(item_params)
-
-    respond_to do |format|
       if @item.save
-        format.html { redirect_to @item, notice: "Item was successfully created." }
-        format.json { render :show, status: :created, location: @item }
+        @item.assign_tags(params[:item][:tag_list]) if params[:item][:tag_list].present?
+        redirect_to @item, notice: "アイテムが登録されました。"
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
+        render :new, status: :unprocessable_entity
       end
-    end
   end
 
   # PATCH/PUT /items/1 or /items/1.json
   def update
-    respond_to do |format|
-      if @item.update(item_params)
-        format.html { redirect_to @item, notice: "Item was successfully updated." }
-        format.json { render :show, status: :ok, location: @item }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
-      end
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      @item.assign_tags(params[:item][:tag_list]) if params[:item][:tag_list].present?
+      redirect_to @item, notice: "アイテムが更新されました。"
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
   # DELETE /items/1 or /items/1.json
   def destroy
-    @item.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to items_path, status: :see_other, notice: "Item was successfully destroyed." }
-      format.json { head :no_content }
+    if @item.destroy
+      redirect_to items_path, status: :see_other, notice: "アイテムが正常に削除されました。"
+    else
+      redirect_to items_path, alert: "アイテムの削除に失敗しました。"
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def require_login
-      unless user_signed_in?
+      unless logged_in?
         redirect_to new_user_path, alert: 'ログインしてください'
       end
     end
@@ -73,6 +74,6 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:name, :description, :image_url, :storage, :status)
+      params.require(:item).permit(:name, :description, :image_url, :image_url_cache, :storage, :status, :tag_list)
     end
 end

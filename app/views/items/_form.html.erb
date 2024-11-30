@@ -1,42 +1,50 @@
-<%= form_with(model: item) do |form| %>
-  <% if item.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
+      <%= form_with(model: item) do |form| %>
+        <% if @item.errors.any? %>
+          <div style="color: red">
+            <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
 
-      <ul>
-        <% item.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+            <ul>
+              <% @item.errors.each do |error| %>
+                <li><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          </div>
         <% end %>
-      </ul>
+        <br>
+        <div class="form-group">
+          <%= form.label :Photo %>
+            <%= form.file_field :image_url, class: "form-control", accept: 'image/*' %>
+                <%= form.hidden_field :image_url_cache %>
+        </div>
+        <br>
+        <div class="form-group">
+          <%= form.label :タイトル, style: "display: block" %>
+          <%= form.text_field :name %>
+        </div>
+        <br>
+        <div class="form-group">
+          <%= form.label :info, style: "display: block" %>
+          <%= form.text_area :description, style: "width: 400px; height: 200px;" %>
+        </div>
+        <br>
+        <div class="form-group">
+          <%= form.label :保管場所, style: "display: block" %>
+          <%= form.text_field :storage %>
+        </div>
+        <br>
+        <div class="form-group">
+          <p>タグをカンマで区切って入力してください！</p>
+          <%= form.label :タグ, style: "display: block" %>
+          <%= form.text_field :tag_list, value: item.tags.pluck(:name).join(', ') %>
+        </div>
+        <br>
+        <div class="form-group">
+          <%= form.submit %>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
   </div>
-
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_area :description %>
-  </div>
-
-  <div>
-    <%= form.label :image_url, style: "display: block" %>
-    <%= form.text_field :image_url %>
-  </div>
-
-  <div>
-    <%= form.label :storage, style: "display: block" %>
-    <%= form.text_field :storage %>
-  </div>
-
-  <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status %>
-  </div>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>
