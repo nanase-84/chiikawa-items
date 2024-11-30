@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
-  skip_before_action :require_login, only: %i[top]
-  before_action :require_login, only: %i[new create edit update destroy]
-  before_action :set_item, only: %i[ show edit update destroy ]
+skip_before_action :require_login, only: %i[top]
+before_action :require_login, only: %i[new create edit update destroy]
+before_action :set_item, only: %i[show edit update destroy]
 
   # GET /items or /items.json
   def index
@@ -9,11 +9,17 @@ class ItemsController < ApplicationController
   end
 
   def top
-    @items = Item.all
+    if params[:tag].present?
+      @items = Item.joins(:tags).where(tags: { name: params[:tag] }).order(created_at: :desc)
+    else
+      @items = Item.includes(:tags).order(created_at: :desc)
+    end
   end
 
   # GET /items/1 or /items/1.json
-  def show; end
+  def show
+    @item = Item.find(params[:id])
+  end
 
   # GET /items/new
   def new
@@ -26,12 +32,11 @@ class ItemsController < ApplicationController
   # POST /items or /items.json
   def create
     @item = Item.new(item_params)
-
       if @item.save
-        @item.tags = parse_tags(params[:item][:tag_list])
+        @item.assign_tags(params[:item][:tag_list]) if params[:item][:tag_list].present?
         redirect_to @item, notice: "アイテムが登録されました。"
       else
-        render :new
+        render :new, status: :unprocessable_entity
       end
   end
 
@@ -39,20 +44,19 @@ class ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if @item.update(item_params)
-      @item.tags = parse_tags(params[:item][:tag_list])
+      @item.assign_tags(params[:item][:tag_list]) if params[:item][:tag_list].present?
       redirect_to @item, notice: "アイテムが更新されました。"
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
   # DELETE /items/1 or /items/1.json
   def destroy
-    @item.destroy!
-
-    respond_to do |format|
-      format.html { redirect_to items_path, status: :see_other, notice: "Item was successfully destroyed." }
-      format.json { head :no_content }
+    if @item.destroy
+      redirect_to items_path, status: :see_other, notice: "アイテムが正常に削除されました。"
+    else
+      redirect_to items_path, alert: "アイテムの削除に失敗しました。"
     end
   end
 
@@ -70,12 +74,6 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:name, :description, :image_url, :image_url_cache, :storage, :status)
-    end
-
-    def parse_tags(tag_list)
-      tag_list.split(',').map(&:strip).uniq.map do |tag_name|
-        Tag.find_or_create_by(name: tag_name)
-      end
+      params.require(:item).permit(:name, :description, :image_url, :image_url_cache, :storage, :status, :tag_list)
     end
 end

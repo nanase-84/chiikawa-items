@@ -1,10 +1,19 @@
-<p style="color: green"><%= notice %></p>
-
-<%= render @item %>
-
+<p style="color: blue;"><%= notice %></p>
+  <br>
+  <br>
+  <br>
+  <div>
+    <% if @item.image_url.present? %>
+      <%= image_tag(@item.image_url.url, size: "250x350", alt: @item.name) %>
+    <% else %>
+      <%= image_tag "no_image.png", size: "250x350", alt: "No image available" %>
+    <% end %>
+  <br>
+  <br>
+  <br>
 <div>
-  <%= link_to "Edit this item", edit_item_path(@item) %> |
-  <%= link_to "Back to items", items_path %>
+  <%= link_to "編集", edit_item_path(@item) %> |
+  <%= link_to "Top", root_path %>
 
-  <%= button_to "Destroy this item", @item, method: :delete %>
+  <%= button_to "!アイテムを消す", @item, method: :delete %>
 </div>
