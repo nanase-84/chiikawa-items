@@ -32,7 +32,7 @@ gem 'sassc'
 gem 'sorcery'
 gem 'minitest', '>= 5.1'
 gem 'carrierwave', '~> 3.0'
-gem 'kaminari', '1.2.2'
+gem 'kaminari'
 gem 'bootstrap5-kaminari-views'
 gem 'ransack', '3.2.1'
 

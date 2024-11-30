@@ -348,7 +348,7 @@ DEPENDENCIES
   faker
   jbuilder
   jsbundling-rails
-  kaminari (= 1.2.2)
+  kaminari
   listen
   minitest (>= 5.1)
   mysql2 (~> 0.5)
