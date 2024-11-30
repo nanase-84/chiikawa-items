@@ -8,7 +8,9 @@ class ItemsController < ApplicationController
     @items = Item.all
   end
 
-  def top; end
+  def top
+    @items = Item.all
+  end
 
   # GET /items/1 or /items/1.json
   def show; end
@@ -62,7 +64,7 @@ class ItemsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def require_login
-      unless user_signed_in?
+      unless logged_in?
         redirect_to new_user_path, alert: 'ログインしてください'
       end
     end
