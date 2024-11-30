@@ -31,6 +31,7 @@ gem "jbuilder"
 gem 'sassc'
 gem 'sorcery'
 gem 'minitest', '>= 5.1'
+gem 'carrierwave', '~> 3.0'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"

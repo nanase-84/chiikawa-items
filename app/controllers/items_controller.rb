@@ -27,27 +27,22 @@ class ItemsController < ApplicationController
   def create
     @item = Item.new(item_params)
 
-    respond_to do |format|
       if @item.save
-        format.html { redirect_to @item, notice: "Item was successfully created." }
-        format.json { render :show, status: :created, location: @item }
+        @item.tags = parse_tags(params[:item][:tag_list])
+        redirect_to @item, notice: "アイテムが登録されました。"
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
+        render :new
       end
-    end
   end
 
   # PATCH/PUT /items/1 or /items/1.json
   def update
-    respond_to do |format|
-      if @item.update(item_params)
-        format.html { redirect_to @item, notice: "Item was successfully updated." }
-        format.json { render :show, status: :ok, location: @item }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @item.errors, status: :unprocessable_entity }
-      end
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      @item.tags = parse_tags(params[:item][:tag_list])
+      redirect_to @item, notice: "アイテムが更新されました。"
+    else
+      render :edit
     end
   end
 
@@ -75,6 +70,12 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:name, :description, :image_url, :storage, :status)
+      params.require(:item).permit(:name, :description, :image_url, :image_url_cache, :storage, :status)
+    end
+
+    def parse_tags(tag_list)
+      tag_list.split(',').map(&:strip).uniq.map do |tag_name|
+        Tag.find_or_create_by(name: tag_name)
+      end
     end
 end
