@@ -10,9 +10,9 @@ before_action :set_item, only: %i[show edit update destroy]
 
   def top
     if params[:tag].present?
-      @items = Item.joins(:tags).where(tags: { name: params[:tag] }).order(created_at: :desc)
+      @items = Item.joins(:tags).where(tags: { name: params[:tag] }).order(created_at: :desc).page(params[:page]).per(6)
     else
-      @items = Item.includes(:tags).order(created_at: :desc)
+      @items = Item.includes(:tags).order(created_at: :desc).page(params[:page]).per(6)
     end
   end
 

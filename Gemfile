@@ -32,6 +32,9 @@ gem 'sassc'
 gem 'sorcery'
 gem 'minitest', '>= 5.1'
 gem 'carrierwave', '~> 3.0'
+gem 'kaminari', '1.2.2'
+gem 'bootstrap5-kaminari-views'
+gem 'ransack', '3.2.1'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"

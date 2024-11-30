@@ -7,4 +7,8 @@
         </button>
     </div>
    <%= render "list", item: @item %>
+    <br>
+    <br>
+    <%= @items.count %>件のアイテムが見つかりました。
+   <%= paginate @items, theme:"bootstrap-5", always_show_1: true %>
 </body>

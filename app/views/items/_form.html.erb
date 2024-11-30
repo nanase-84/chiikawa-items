@@ -15,29 +15,29 @@
         <% end %>
         <br>
         <div class="form-group">
-          <%= form.label :image_url %>
+          <%= form.label :Photo %>
             <%= form.file_field :image_url, class: "form-control", accept: 'image/*' %>
                 <%= form.hidden_field :image_url_cache %>
         </div>
         <br>
         <div class="form-group">
-          <%= form.label :name, style: "display: block" %>
+          <%= form.label :タイトル, style: "display: block" %>
           <%= form.text_field :name %>
         </div>
         <br>
         <div class="form-group">
-          <%= form.label :description, style: "display: block" %>
+          <%= form.label :info, style: "display: block" %>
           <%= form.text_area :description, style: "width: 400px; height: 200px;" %>
         </div>
         <br>
         <div class="form-group">
-          <%= form.label :storage, style: "display: block" %>
+          <%= form.label :保管場所, style: "display: block" %>
           <%= form.text_field :storage %>
         </div>
         <br>
         <div class="form-group">
           <p>タグをカンマで区切って入力してください！</p>
-          <%= form.label :tags, style: "display: block" %>
+          <%= form.label :タグ, style: "display: block" %>
           <%= form.text_field :tag_list, value: item.tags.pluck(:name).join(', ') %>
         </div>
         <br>
