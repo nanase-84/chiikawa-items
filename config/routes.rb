@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :comments
   resources :user_sessions
   resources :users
   get "items", to: "items#top"
@@ -14,6 +15,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :items
+  resources :items do
+    resources :comments, only: [:new, :create], shallow: true
+  end
   resources :users, only: [:new, :create, :index]
 end

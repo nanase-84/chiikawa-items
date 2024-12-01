@@ -19,6 +19,8 @@ before_action :set_item, only: %i[show edit update destroy]
   # GET /items/1 or /items/1.json
   def show
     @item = Item.find(params[:id])
+    @comment = Comment.new
+    @comments = @item.comments.includes(:user).order(created_at: :desc)
   end
 
   # GET /items/new

@@ -1,8 +1,10 @@
 class Item < ApplicationRecord
   attr_accessor :tag_list
+  belongs_to :user
 
   has_many :items_tags, dependent: :destroy
   has_many :tags, through: :items_tags
+  has_many :comments, dependent: :destroy
 
   mount_uploader :image_url, ImageUploader
 
