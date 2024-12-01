@@ -74,6 +74,6 @@ before_action :set_item, only: %i[show edit update destroy]
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:name, :description, :image_url, :image_url_cache, :storage, :status, :tag_list)
+      params.require(:item).permit(:name, :description, :image_url, :image_url_cache, :storage, :status, :tag_list, tag_ids: [])
     end
 end
