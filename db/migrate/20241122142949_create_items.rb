@@ -6,7 +6,6 @@ class CreateItems < ActiveRecord::Migration[7.1]
       t.string :image_url
       t.string :storage
       t.string :status
-      t.references :user, null: false, foreign_key: true
 
       t.timestamps
     end
