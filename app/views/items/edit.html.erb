@@ -1,10 +1,18 @@
-<h1>Editing item</h1>
-
+<h1>Item Update</h1>
+<br>
+  <div>
+    <% if @item.image_url.present? %>
+      <%= image_tag(@item.image_url.url, size: "250x350", alt: @item.name) %>
+    <% else %>
+      <%= image_tag "sample.jpg", size: "250x350", alt: "No image available" %>
+    <% end %>
+  </div>
+<br>
 <%= render "form", item: @item %>
 
 <br>
-
+<br>
 <div>
-  <%= link_to "Show this item", @item %> |
-  <%= link_to "Back to items", items_path %>
+  <%= link_to "Show item", @item %> |
+  <%= link_to "Top", items_path %>
 </div>
