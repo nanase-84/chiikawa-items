@@ -36,6 +36,7 @@ gem 'kaminari'
 gem 'bootstrap5-kaminari-views'
 gem 'ransack', '3.2.1'
 
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
@@ -70,6 +71,7 @@ group :development do
   gem "spring"
   gem 'listen'
   gem 'spring-watcher-listen'
+  gem 'byebug'
 end
 
 group :test do

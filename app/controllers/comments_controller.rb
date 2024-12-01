@@ -1,20 +1,27 @@
 class CommentsController < ApplicationController
 
-  def new
-    @item = Item.find_by(id: params[:item_id]) # item_idを使ってitemを取得
-    if @item.nil?
-      redirect_to items_path, alert: 'アイテムが見つかりませんでした'
-      return
+  def create
+    @item = Item.find(params[:item_id])
+    @comment = current_user.comments.build(comment_params)
+    @comment.item = @item
+    if @comment.save
+      redirect_to item_path(@item), success: "コメントを投稿しました"
+    else
+      render 'items/show', status: :unprocessable_entity
     end
-    @comment = @item.comments.build 
   end
 
-  def create
-    @comment = current_user.comments.build(comment_params)
-    if @comment.save
-      redirect_to item_path(@comment.item), success: "コメントを投稿しました"
+  def edit
+    @item = Item.find(params[:item_id])
+    @comment = @item.comments.find(params[:id])
+  end
+
+  def update
+    @comment = @item.comments.find(params[:id])
+    if @comment.update(comment_params)
+      redirect_to item_path(@item), notice: 'コメントが更新されました。'
     else
-      redirect_to item_path(@comment.item), danger: "コメントの投稿に失敗しました"
+      render :edit, status: :unprocessable_entity
     end
   end
 
