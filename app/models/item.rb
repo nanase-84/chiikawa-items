@@ -5,7 +5,6 @@ class Item < ApplicationRecord
   has_many :tags, through: :items_tags
 
   mount_uploader :image_url, ImageUploader
-  paginates_per 6
 
   validates :name, presence: true, length: { maximum: 255 }
   validates :description, presence: true, length: { maximum: 65_535 }

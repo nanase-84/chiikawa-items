@@ -6,7 +6,7 @@
     <% if @item.image_url.present? %>
       <%= image_tag(@item.image_url.url, size: "250x350", alt: @item.name) %>
     <% else %>
-      <%= image_tag "no_image.png", size: "250x350", alt: "No image available" %>
+      <%= image_tag "sample.jpg", size: "250x350", alt: "No image available" %>
     <% end %>
   </div>
   <br>
@@ -20,15 +20,15 @@
       <% if @item.tags.any? %> <!-- Check if the item has any tags -->
         <%= @item.tags.pluck(:name).join(', ') %> <!-- Display the tags as a comma-separated list -->
       <% else %>
-        No tags available.
+        設定されていません
       <% end %>
     </p>
   </div>
   <br>
   <br>
 <div>
-  <%= link_to "編集", edit_item_path(@item) %> |
+  <%= link_to "Update", edit_item_path(@item) %> |
   <%= link_to "Top", root_path %>
 
-  <%= button_to "!アイテムを消す", @item, method: :delete %>
+  <%= button_to "!アイテムを消す", @item, data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
 </div>

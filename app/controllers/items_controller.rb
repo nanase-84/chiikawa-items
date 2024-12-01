@@ -27,7 +27,9 @@ before_action :set_item, only: %i[show edit update destroy]
   end
 
   # GET /items/1/edit
-  def edit; end
+  def edit
+    @item = Item.find(params[:id])
+  end
 
   # POST /items or /items.json
   def create
@@ -74,6 +76,6 @@ before_action :set_item, only: %i[show edit update destroy]
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:name, :description, :image_url, :image_url_cache, :storage, :status, :tag_list)
+      params.require(:item).permit(:name, :description, :image_url, :image_url_cache, :storage, :status, :tag_list, tag_ids: [])
     end
 end
