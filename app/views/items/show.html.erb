@@ -6,7 +6,7 @@
     <% if @item.image_url.present? %>
       <%= image_tag(@item.image_url.url, size: "250x350", alt: @item.name) %>
     <% else %>
-      <%= image_tag "no_image.png", size: "250x350", alt: "No image available" %>
+      <%= image_tag "sample.jpg", size: "250x350", alt: "No image available" %>
     <% end %>
   </div>
   <br>
