@@ -14,3 +14,4 @@ Rails.application.config.assets.paths << Rails.root.join("node_modules/bootstrap
 
 Rails.application.config.assets.precompile += %w(application.css)
 Rails.application.config.assets.precompile += %w( custom.css )
+Rails.application.config.assets.precompile += %w( no_image.png ) %w(画像なし)
