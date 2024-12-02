@@ -12,10 +12,6 @@ class Item < ApplicationRecord
   validates :description, presence: true, length: { maximum: 65_535 }
   validates :storage, length: { maximum: 255 }
 
-  def owned_by?(user)
-    self.user == user
-  end
-
   def assign_tags(tag_list)
     tag_names = tag_list.split(',').map(&:strip).uniq
     existing_tags = Tag.where(name: tag_names)

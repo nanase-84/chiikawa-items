@@ -3,13 +3,13 @@
     <div class="col-lg-8 offset-lg-2">
       <%= form_with(model: item) do |form| %>
         <% if @item.errors.any? %>
-          <div style="color: red">
-            <h2><%= pluralize(@item.errors.count, "error") %> prohibited this item from being saved:</h2>
-
-            <ul>
-              <% @item.errors.each do |error| %>
-                <li><%= error.full_message %></li>
-              <% end %>
+          <div style="color: blue">
+            <div class="error_messages">
+              <h2>Errors:</h2>
+              <ul>
+                <% @item.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
             </ul>
           </div>
         <% end %>

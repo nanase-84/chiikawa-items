@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  skip_before_action :require_login, only: %i[top]
+  skip_before_action :require_login, only: %i[top show]
   before_action :require_login, only: %i[new create edit update destroy]
   before_action :set_item, only: %i[show edit update destroy]
 
@@ -34,7 +34,7 @@ class ItemsController < ApplicationController
 
   # POST /items or /items.json
   def create
-    @item = Item.new(item_params)
+    @item = current_user.items.new(item_params)
       if @item.save
         @item.assign_tags(params[:item][:tag_list]) if params[:item][:tag_list].present?
         redirect_to @item, notice: "アイテムが登録されました。"
@@ -57,16 +57,16 @@ class ItemsController < ApplicationController
   # DELETE /items/1 or /items/1.json
   def destroy
     if @item.destroy
-      redirect_to items_path, status: :see_other, notice: "アイテムが正常に削除されました。"
+      redirect_to root_path, status: :see_other, notice: "アイテムが正常に削除されました。"
     else
-      redirect_to items_path, alert: "アイテムの削除に失敗しました。"
+      redirect_to root_path, alert: "アイテムの削除に失敗しました。"
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def require_login
-      unless logged_in?
+      unless current_user
         redirect_to new_user_path, alert: 'ログインしてください'
       end
     end
@@ -77,6 +77,6 @@ class ItemsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:name, :description, :image_url, :image_url_cache, :storage, :status, :tag_list, tag_ids: [])
+      params.require(:item).permit(:name, :description, :image_url, :image_url_cache, :storage, :status, :tag_list)
     end
 end

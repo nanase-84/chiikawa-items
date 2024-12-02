@@ -1,7 +1,7 @@
 <div class="row mb-3" id="comment-form">
   <div class="col-lg-8 offset-lg-2">
     <%= form_with model: [@item, @comment], local: true do |form| %>
-      <%= form.label :newcomment %>
+      <%= form.label :コメント %>
       <%= form.text_area :content, class: "form-control mb-3", rows: 4, 
                 style: "height: 300px; width: 500px; margin: 0 auto;" %>
       <%= form.submit %>
