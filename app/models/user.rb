@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   authenticates_with_sorcery!
-
+  
   has_many :comments, dependent: :destroy
   has_many :items, dependent: :destroy
 
@@ -12,5 +12,9 @@ class User < ApplicationRecord
 
   def own?(object)
     id == object&.user_id
+  end
+
+  def own?(comment)
+    comment.user_id == id
   end
 end

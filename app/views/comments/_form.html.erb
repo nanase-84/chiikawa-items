@@ -1,10 +1,10 @@
 <div class="row mb-3" id="comment-form">
   <div class="col-lg-8 offset-lg-2">
-    <%= form_with model: comment, url: item_comments_path(item) do |f| %>
-      <%= f.label :newcomment %>
-      <%= f.text_area :content, class: "form-control mb-3", rows: 4, 
+    <%= form_with model: [@item, @comment], local: true do |form| %>
+      <%= form.label :newcomment %>
+      <%= form.text_area :content, class: "form-control mb-3", rows: 4, 
                 style: "height: 300px; width: 500px; margin: 0 auto;" %>
-      <%= f.submit %>
+      <%= form.submit %>
     <% end %>
   </div>
 </div>

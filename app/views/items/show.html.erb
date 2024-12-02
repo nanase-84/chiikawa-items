@@ -26,18 +26,22 @@
   </div>
   <br>
   <h2>--Comments--</h2>
-  <div>
+  <br>
    <% if @comments.present? && @comments.any? %>
     <% @comments.each do |comment| %>
       <div class="comment">
         <p><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
+          <% if current_user.own?(comment) %>
+            <div class='d-flex justify-content-end'>
+              <%= link_to '編集', edit_item_comment_path(item_id: @item.id, id: comment.id)%> |
+              <%= link_to '削除', comment_path(comment), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+            </div>
+          <% end %>
         <p><small><%= time_ago_in_words(comment.created_at) %> 前</small></p>
-      </div>
     <% end %>
-  <% else %>
-    <p>No comments yet. Be the first to comment!</p>
-  <% end %>
-  </div>
+   <% else %>
+    <p>コメントはありません</p>
+   <% end %>
     <br>
     <div class="comment-form">
       <%= form_with(model: [@item, @comment], local: true) do |form| %>

@@ -1,10 +1,11 @@
-<h1>Editing comment</h1>
-
+<br>
+<h1>Comment Update</h1>
+<br>
 <%= render "form", comment: @comment %>
 
 <br>
 
 <div>
   <%= link_to 'Edit Comment', edit_item_comment_path(@item, @comment) %>
-  <%= link_to "Back to comments", comments_path %>
+  <%= link_to "Top", root_path %>
 </div>
