@@ -1,4 +1,7 @@
 <p style="color: blue;"><%= notice %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
   <br>
   <br>
   <br>
@@ -15,7 +18,7 @@
     <br>
     <p><%= @item.description %></p> <!-- Display the item description -->
     <p><strong>保管場所</strong> <%= @item.storage %></p> <!-- Display the item storage -->
-
+    <br>
     <p><strong>タグ</strong>
       <% if @item.tags.any? %> <!-- Check if the item has any tags -->
         <%= @item.tags.pluck(:name).join(', ') %> <!-- Display the tags as a comma-separated list -->
@@ -31,7 +34,8 @@
     <% @comments.each do |comment| %>
       <div class="comment">
         <p><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
-          <% if current_user.own?(comment) %>
+         <% if current_user && current_user.own?(comment) %>
+          <div class='d-flex justify-content-end'>
             <div class='d-flex justify-content-end'>
               <%= link_to '編集', edit_item_comment_path(item_id: @item.id, id: comment.id)%> |
               <%= link_to '削除', comment_path(comment), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
@@ -50,9 +54,14 @@
       <% end %>
   </div>
   <br>
-  <%= button_to "!アイテムを消す", @item, data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+  <div class="item-actions">
+    <%= button_to "!アイテムを消す", @item, data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+  </div>
   <br>
-<div>
+<div class="navigation">
   <%= link_to "Update", edit_item_path(@item) %> |
   <%= link_to "Top", root_path %>
+</div>
+</div>
+</div>
 </div>
