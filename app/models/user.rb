@@ -13,4 +13,8 @@ class User < ApplicationRecord
   def own?(object)
     id == object&.user_id
   end
+
+  def own?(comment)
+    comment.user_id == id
+  end
 end

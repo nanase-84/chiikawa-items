@@ -12,15 +12,11 @@ class Item < ApplicationRecord
   validates :description, presence: true, length: { maximum: 65_535 }
   validates :storage, length: { maximum: 255 }
 
-  def assign_tags(tag_list)
-    tag_names = tag_list.split(',').map(&:strip).uniq
-    existing_tags = Tag.where(name: tag_names)
-    new_tags = tag_names - existing_tags.pluck(:name)
+  def assign_tags
+    return unless tag_list.present?
 
-    # Create new tags if they don't exist
-    new_tags = new_tags.map { |name| Tag.create(name: name) }
-
-    # Assign tags to the item
-    self.tags = existing_tags + new_tags
+    self.tags = tag_list.split(',').map do |tag_name|
+      Tag.find_or_create_by(name: tag_name.strip)
+    end
   end
 end

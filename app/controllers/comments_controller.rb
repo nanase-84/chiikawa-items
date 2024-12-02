@@ -1,29 +1,43 @@
 class CommentsController < ApplicationController
-
-  def new
-    @item = Item.find_by(id: params[:item_id]) # item_idを使ってitemを取得
-    if @item.nil?
-      redirect_to items_path, alert: 'アイテムが見つかりませんでした'
-      return
-    end
-    @comment = @item.comments.build 
-  end
+  before_action :set_comment, only: [:edit, :destroy]
+  before_action :require_login, only: [:edit, :update, :destroy]
 
   def create
+    @item = Item.find(params[:item_id])
     @comment = current_user.comments.build(comment_params)
+    @comment.item = @item
     if @comment.save
-      redirect_to item_path(@comment.item), success: "コメントを投稿しました"
+      redirect_to item_path(@item), success: "コメントを投稿しました"
     else
-      redirect_to item_path(@comment.item), danger: "コメントの投稿に失敗しました"
+      render 'items/show', status: :unprocessable_entity
+    end
+  end
+
+  def edit
+    @item = Item.find(params[:item_id])
+    @comment = Comment.find(params[:id])
+  end
+
+  def update
+    @item = Item.find(params[:item_id])
+    @comment = @item.comments.find(params[:id])
+    if @comment.update(comment_params)
+      redirect_to item_path(@item), notice: 'コメントが更新されました。'
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @comment = current_user.comments.find(params[:id])
     @comment.destroy!
+    redirect_to item_path(@comment.item), notice: 'コメントが削除されました'
   end
 
   private
+
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
 
   def comment_params
     params.require(:comment).permit(:content).merge(item_id: params[:item_id])

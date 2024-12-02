@@ -1,4 +1,7 @@
 <p style="color: blue;"><%= notice %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2">
   <br>
   <br>
   <br>
@@ -15,7 +18,7 @@
     <br>
     <p><%= @item.description %></p> <!-- Display the item description -->
     <p><strong>保管場所</strong> <%= @item.storage %></p> <!-- Display the item storage -->
-
+    <br>
     <p><strong>タグ</strong>
       <% if @item.tags.any? %> <!-- Check if the item has any tags -->
         <%= @item.tags.pluck(:name).join(', ') %> <!-- Display the tags as a comma-separated list -->
@@ -26,23 +29,42 @@
   </div>
   <br>
   <h2>--Comments--</h2>
-  <div>
-  <% @comments.each do |comment| %>
-    <div class="comment">
-      <p><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
-      <p><small><%= time_ago_in_words(comment.created_at) %> 前</small></p>
-    </div>
-  <% end %>
-</div>
-  <div class="button-wrapper">
-        <button style="background-color: #8515F5; color: white; padding: 10px 20px; border: none; border-radius: 5px;">
-            <%= link_to "コメントを書く", new_item_comment_path(@item), style: "color: inherit; text-decoration: none;" %>
-        </button>
-    </div>
   <br>
-  <%= button_to "!アイテムを消す", @item, data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+   <% if @comments.present? && @comments.any? %>
+    <% @comments.each do |comment| %>
+      <div class="comment">
+        <p><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
+         <% if current_user && current_user.own?(comment) %>
+          <div class='d-flex justify-content-end'>
+            <div class='d-flex justify-content-end'>
+              <%= link_to '編集', edit_item_comment_path(item_id: @item.id, id: comment.id)%> |
+              <%= link_to '削除', comment_path(comment), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
+            </div>
+          <% end %>
+        <p><small><%= time_ago_in_words(comment.created_at) %> 前</small></p>
+    <% end %>
+   <% else %>
+    <p>コメントはありません</p>
+   <% end %>
+    <br>
+    <div class="comment-form">
+      <%= form_with(model: [@item, @comment], local: true) do |form| %>
+        <%= form.text_area :content, placeholder: "コメントを入力してください" %>
+        <p><%= form.submit "コメント!", style: "background-color: #8515F5; color: white;" %></p>
+      <% end %>
+  </div>
   <br>
-<div>
+  <div class="item-actions">
+    <button style="background-color: #8515F5; color: white; padding: 10px 20px; border: none; border-radius: 5px;">
+      <%= link_to "!アイテムを消す", item_path(@item.id), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" }, 
+        style: "color: inherit; text-decoration: none;" %>
+    </button>
+  </div>
+  <br>
+<div class="navigation">
   <%= link_to "Update", edit_item_path(@item) %> |
   <%= link_to "Top", root_path %>
+</div>
+</div>
+</div>
 </div>

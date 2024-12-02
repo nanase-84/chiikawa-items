@@ -1,7 +1,7 @@
 class ItemsController < ApplicationController
-skip_before_action :require_login, only: %i[top]
-before_action :require_login, only: %i[new create edit update destroy]
-before_action :set_item, only: %i[show edit update destroy]
+  skip_before_action :require_login, only: %i[top show]
+  before_action :require_login, only: %i[new create edit update destroy]
+  before_action :set_item, only: %i[show edit update destroy]
 
   # GET /items or /items.json
   def index
@@ -18,7 +18,6 @@ before_action :set_item, only: %i[show edit update destroy]
 
   # GET /items/1 or /items/1.json
   def show
-    @item = Item.find(params[:id])
     @comment = Comment.new
     @comments = @item.comments.includes(:user).order(created_at: :desc)
   end
@@ -35,10 +34,10 @@ before_action :set_item, only: %i[show edit update destroy]
 
   # POST /items or /items.json
   def create
-    @item = Item.new(item_params)
+    @item = current_user.items.new(item_params)
       if @item.save
-        @item.assign_tags(params[:item][:tag_list]) if params[:item][:tag_list].present?
-        redirect_to @item, notice: "アイテムが登録されました。"
+        @item.assign_tags
+        redirect_to @item, notice: "アイテムが登録されました"
       else
         render :new, status: :unprocessable_entity
       end
@@ -48,7 +47,7 @@ before_action :set_item, only: %i[show edit update destroy]
   def update
     @item = Item.find(params[:id])
     if @item.update(item_params)
-      @item.assign_tags(params[:item][:tag_list]) if params[:item][:tag_list].present?
+      @item.assign_tags
       redirect_to @item, notice: "アイテムが更新されました。"
     else
       render :edit, status: :unprocessable_entity
@@ -58,16 +57,16 @@ before_action :set_item, only: %i[show edit update destroy]
   # DELETE /items/1 or /items/1.json
   def destroy
     if @item.destroy
-      redirect_to items_path, status: :see_other, notice: "アイテムが正常に削除されました。"
+      redirect_to root_path, status: :see_other, notice: "アイテムが正常に削除されました。"
     else
-      redirect_to items_path, alert: "アイテムの削除に失敗しました。"
+      redirect_to root_path, alert: "アイテムの削除に失敗しました。"
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def require_login
-      unless logged_in?
+      unless current_user
         redirect_to new_user_path, alert: 'ログインしてください'
       end
     end
@@ -78,6 +77,6 @@ before_action :set_item, only: %i[show edit update destroy]
 
     # Only allow a list of trusted parameters through.
     def item_params
-      params.require(:item).permit(:name, :description, :image_url, :image_url_cache, :storage, :status, :tag_list, tag_ids: [])
+      params.require(:item).permit(:name, :description, :image_url, :image_url_cache, :storage, :status, :tag_list)
     end
 end

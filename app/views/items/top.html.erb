@@ -1,3 +1,4 @@
+<p style="color: blue;"><%= notice %></p>
 <body>
     <br>
     <br>
@@ -10,5 +11,7 @@
     <br>
     <br>
     <%= @items.count %>件のアイテムが見つかりました。
-    <%= paginate @items %>
+    <div class="pagination-container">
+        <%= paginate @items %>
+    </div>
 </body>

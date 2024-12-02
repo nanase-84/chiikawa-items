@@ -2,7 +2,7 @@ body {
     font-family: "Itim", cursive;
     background-color: #FFD4FD;
     color: #15A3F5;
-    font-size: 16px;
+    font-size: 18px;
     margin: 0;
     text-align: center; /* h1のテキストを中央寄せ */
 }
@@ -43,4 +43,10 @@ button a {
 
 .button-wrapper {
   margin-top: 20px; /* ボタンの上マージンを20pxに設定 */
+}
+
+.pagination-container {
+  text-align: center; /* 中央揃えにする */
+  margin: 20px 0; /* 上下の余白を調整 */
+  font-size: 18px;
 }
