@@ -36,8 +36,8 @@ class ItemsController < ApplicationController
   def create
     @item = current_user.items.new(item_params)
       if @item.save
-        @item.assign_tags(params[:item][:tag_list]) if params[:item][:tag_list].present?
-        redirect_to @item, notice: "アイテムが登録されました。"
+        @item.assign_tags
+        redirect_to @item, notice: "アイテムが登録されました"
       else
         render :new, status: :unprocessable_entity
       end
@@ -47,7 +47,7 @@ class ItemsController < ApplicationController
   def update
     @item = Item.find(params[:id])
     if @item.update(item_params)
-      @item.assign_tags(params[:item][:tag_list]) if params[:item][:tag_list].present?
+      @item.assign_tags
       redirect_to @item, notice: "アイテムが更新されました。"
     else
       render :edit, status: :unprocessable_entity
