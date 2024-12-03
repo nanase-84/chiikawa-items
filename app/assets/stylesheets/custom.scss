@@ -45,10 +45,16 @@ button a {
   margin-top: 20px; /* ボタンの上マージンを20pxに設定 */
 }
 
-.pagination-container {
-  display: flex; /* フレックスボックスを使用 */
-      justify-content: center; /* 水平方向に中央揃え */
-      align-items: center; /* 垂直方向に中央揃え（必要なら） */ 
-      margin-top : 20px; /* 上下の間隔を調整 */
-      width: 100%;
+.form-inline {
+  display: flex;
+  gap: 1rem; /* 要素間のスペース */
+  align-items: flex-start; /* 上下位置を揃える */
+}
+
+/* 入力フィールドを横に広げる */
+.form-control.wide-input {
+  width: 300px; /* 必要に応じて変更 */
+  max-width: 100%; /* レスポンシブ対応 */
+  padding: 0.5rem;
+  font-size: 1rem;
 }

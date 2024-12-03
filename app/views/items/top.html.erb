@@ -7,6 +7,20 @@
             <%= link_to "アイテム登録はこちら", new_item_path, style: "color: inherit; text-decoration: none;" %>
         </button>
     </div>
+    <br>
+    <%= search_form_for @q, url: root_path, method: :get do |f| %>
+      <div> 
+        <%= f.label :name_or_description_or_storage_cont, "キーワード検索" %>
+        <%= f.search_field :name_or_description_or_storage_cont, id: 'search_field_of_item' %>
+      </div>
+      <div>
+        <%= label_tag :tag, "タグ検索" %>
+        <%= text_field_tag :tag, params[:tag], id: 'search_field_of_tag' %>
+      </div>
+      <%= f.submit "検索" %>
+    <% end %>
+    <br>
+    <br>
    <%= render "list", item: @item %>
     <br>
     <br>

@@ -20,9 +20,11 @@
                 <%= form.hidden_field :image_url_cache %>
         </div>
         <br>
-        <div class="form-group">
-          <%= form.label :タイトル, style: "display: block" %>
-          <%= form.text_field :name %>
+        <div class="form-inline">
+          <div class="form-group">
+            <%= form.label :タイトル, style: "display: block" %>
+            <%= form.text_field :name %>
+          </div>
         </div>
         <br>
         <div class="form-group">
@@ -30,15 +32,19 @@
           <%= form.text_area :description, style: "width: 400px; height: 200px;" %>
         </div>
         <br>
-        <div class="form-group">
-          <%= form.label :保管場所, style: "display: block" %>
-          <%= form.text_field :storage %>
+        <div class="form-inline">
+          <div class="form-group">
+            <%= form.label :保管場所, style: "display: block" %>
+            <%= form.text_field :storage %>
+          </div>
         </div>
         <br>
-        <div class="form-group">
-          <p>タグをカンマで区切って入力してください！</p>
-          <%= form.label :タグ, style: "display: block" %>
-          <%= form.text_field :tag_list, value: item.tags.pluck(:name).join(', ') %>
+        <div class="form-inline">
+          <div class="form-group">
+            <p>タグをカンマで区切って入力してください！</p>
+            <%= form.label :タグ, style: "display: block" %>
+            <%= form.text_field :tag_list, value: item.tags.pluck(:name).join(', ') %>
+          </div>
         </div>
         <br>
         <div class="form-group">
