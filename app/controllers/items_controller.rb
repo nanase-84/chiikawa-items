@@ -10,14 +10,15 @@ class ItemsController < ApplicationController
 
   def top
     if params[:tag].present?
-      @items = Item.joins(:tags).where(tags: { name: params[:tag] }).order(created_at: :desc).page(params[:page]).per(6)
+      @items = Item.joins(:tags).where(tags: { name: params[:tag] }).order(created_at: :desc).page(params[:page])
     else
-      @items = Item.includes(:tags).order(created_at: :desc).page(params[:page]).per(6)
+      @items = Item.includes(:tags).order(created_at: :desc).page(params[:page])
     end
   end
 
   # GET /items/1 or /items/1.json
   def show
+    @user = @item.user
     @comment = Comment.new
     @comments = @item.comments.includes(:user).order(created_at: :desc)
   end

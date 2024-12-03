@@ -14,9 +14,12 @@
   </div>
   <br>
   <div>
-    <h3><%= @item.name %></h3> <!-- Display the item name -->
+    <h3><%= @item.name %></h3><!-- Display the item name -->
+    <br>
+    <h2><%= @user.name %></h3><!-- Display the item name -->
     <br>
     <p><%= @item.description %></p> <!-- Display the item description -->
+    <br>
     <p><strong>保管場所</strong> <%= @item.storage %></p> <!-- Display the item storage -->
     <br>
     <p><strong>タグ</strong>
@@ -35,7 +38,6 @@
       <div class="comment">
         <p><strong><%= comment.user.name %>:</strong> <%= comment.content %></p>
          <% if current_user && current_user.own?(comment) %>
-          <div class='d-flex justify-content-end'>
             <div class='d-flex justify-content-end'>
               <%= link_to '編集', edit_item_comment_path(item_id: @item.id, id: comment.id)%> |
               <%= link_to '削除', comment_path(comment), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" } %>
