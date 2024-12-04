@@ -9,15 +9,20 @@ class ItemsController < ApplicationController
   end
 
   def top
+    @q = Item.ransack(params[:q])
+    @items = @q.result(distinct: true)
+
     if params[:tag].present?
-      @items = Item.joins(:tags).where(tags: { name: params[:tag] }).order(created_at: :desc).page(params[:page]).per(6)
-    else
-      @items = Item.includes(:tags).order(created_at: :desc).page(params[:page]).per(6)
+      @items = @items.joins(:tags).where(tags: { name: params[:tag] })
     end
+
+    # ページネーションと並び順を適用
+    @items = @items.includes(:tags).order(created_at: :desc).page(params[:page])
   end
 
   # GET /items/1 or /items/1.json
   def show
+    @user = @item.user
     @comment = Comment.new
     @comments = @item.comments.includes(:user).order(created_at: :desc)
   end

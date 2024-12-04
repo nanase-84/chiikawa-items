@@ -1,0 +1,60 @@
+@charset "UTF-8";
+body {
+  font-family: "Itim";
+  background-color: #ef857d;
+  color: #f7f6f5;
+  font-size: 18px;
+  margin: 0;
+  text-align: center;
+  /* h1のテキストを中央寄せ */ }
+
+h1 {
+  margin: 0; }
+
+h2 {
+  margin: 0; }
+
+@media screen and (max-width: 767px) {
+  body {
+    font-size: 1.0rem;
+    /* bodyのフォントサイズを変更 */ } }
+
+.dropdown-slide li {
+  list-style: none; }
+
+/* グローバルなスタイルシートに記述する場合 */
+button {
+  /* ボタンの共通スタイル */
+  background-color: #8515F5;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  /* 角を丸くする */
+  cursor: pointer;
+  /* カーソルをポインタに変更 */ }
+
+button a {
+  /* リンクのスタイル */
+  color: inherit;
+  text-decoration: none; }
+
+.button-wrapper {
+  margin-top: 20px;
+  /* ボタンの上マージンを20pxに設定 */ }
+
+.form-inline {
+  display: flex;
+  gap: 1rem;
+  /* 要素間のスペース */
+  align-items: flex-start;
+  /* 上下位置を揃える */ }
+
+/* 入力フィールドを横に広げる */
+.form-control.wide-input {
+  width: 300px;
+  /* 必要に応じて変更 */
+  max-width: 100%;
+  /* レスポンシブ対応 */
+  padding: 0.5rem;
+  font-size: 1rem; }

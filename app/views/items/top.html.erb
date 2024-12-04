@@ -7,11 +7,23 @@
             <%= link_to "アイテム登録はこちら", new_item_path, style: "color: inherit; text-decoration: none;" %>
         </button>
     </div>
+    <br>
+    <div class="d-flex justify-content-center">
+        <%= search_form_for @q, url: root_path, method: :get, class: "d-flex align-items-center" do |f| %>
+            <div class="form-group me-2">
+                <%= f.label :name_or_description_or_storage_cont, "キーワード", class: "me-2" %>
+                <%= f.search_field :name_or_description_or_storage_cont, id: 'search_field_of_item', class: "form-control" %>
+            </div>
+            <div class="form-group me-2">
+                <%= label_tag :tag, "タグ", class: "me-2" %>
+                <%= text_field_tag :tag, params[:tag], id: 'search_field_of_tag', class: "form-control" %>
+            </div>
+            <%= f.submit "Search", class: "btn btn-primary me-2" %>
+        <% end %>
+    </div>
+    <br>
+    <br>
    <%= render "list", item: @item %>
     <br>
     <br>
-    <%= @items.count %>件のアイテムが見つかりました。
-    <div class="pagination-container">
-        <%= paginate @items %>
-    </div>
 </body>

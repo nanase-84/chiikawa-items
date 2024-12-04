@@ -1,19 +1,19 @@
 <header>
-  <div class="site-header" style="background-color: #F498EF; color: #CFF620; font-size: 20px; font-family: 'Itim', cursive; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
+  <div class="site-header" style="background-color: #e3acae; color: #CFF620; font-size: 20px; font-family: 'Itim', cursive; padding: 20px; display: flex; justify-content: space-between; align-items: center;">
     <div style="flex-grow: 1; text-align: center;">
       <h1 style="margin: 0;">ちいかわ Item Collection</h1>
     </div>
     <nav>
-      <li class='nav-item dropdown dropdown-slide'>
+      <div class=' dropdown dropdown-slide'>
         <%= link_to '#', class: 'nav-link', data: { bs_toggle: 'dropdown' }, aria: { haspopup: 'true', expanded: 'false' }, id: 'header-profile' do %>
             <%= image_tag 'sample.jpg', class: 'rounded-circle mr15', width: '40', height: '40' %>
           <% end %>
           <div class='dropdown-menu dropdown-menu-end'>
-            <div class='dropdown-divider'></div>
-            <%= link_to 'プロフィール', '#', class: 'dropdown-item' %>
-            <%= link_to 'ログアウト', logout_path, class: 'dropdown-item', data: { turbo_method: :delete } %>
+            <div class='dropdown-item'><%= current_user.name %></div>
+              <div class='dropdown-divider'></div>
+                <%= link_to 'ログアウト', logout_path, class: 'dropdown-item', data: { turbo_method: :delete } %>
           </div>
-      </li>
+      </div>
     </nav>
   </div>
 </header>
