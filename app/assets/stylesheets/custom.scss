@@ -1,6 +1,6 @@
 body {
     font-family: "Itim";
-    background-color: #FFD4FD;
+    background-color: #f7f6f5;
     color: #15A3F5;
     font-size: 18px;
     margin: 0;
@@ -43,18 +43,4 @@ button a {
 
 .button-wrapper {
   margin-top: 20px; /* ボタンの上マージンを20pxに設定 */
-}
-
-.form-inline {
-  display: flex;
-  gap: 1rem; /* 要素間のスペース */
-  align-items: flex-start; /* 上下位置を揃える */
-}
-
-/* 入力フィールドを横に広げる */
-.form-control.wide-input {
-  width: 300px; /* 必要に応じて変更 */
-  max-width: 100%; /* レスポンシブ対応 */
-  padding: 0.5rem;
-  font-size: 1rem;
 }
