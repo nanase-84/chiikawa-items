@@ -62,14 +62,12 @@
       <% end %>
   </div>
   <br>
-  <% if @item.user == current_user %>
     <div class="item-actions">
       <button style="background-color: #8515F5; color: white; padding: 10px 20px; border: none; border-radius: 5px;">
         <%= link_to "!アイテムを消す", item_path(@item.id), data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか？" }, 
           style: "color: inherit; text-decoration: none;" %>
       </button>
     </div>
-   <% end %>
   <br>
 <div class="navigation">
  <% if @item.user == current_user %>
