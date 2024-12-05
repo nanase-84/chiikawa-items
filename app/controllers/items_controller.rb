@@ -72,7 +72,7 @@ class ItemsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def require_login
       unless current_user
-        redirect_to new_user_path, alert: 'ログインしてください'
+        redirect_to login_path, alert: 'ログインしてください'
       end
     end
 
