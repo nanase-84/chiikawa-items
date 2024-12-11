@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to user_path(@user), notice: 'ユーザー情報が更新されました'
     else
-      render :edit
+      render :edit, status: :unprocessable_entity
     end
   end
 
