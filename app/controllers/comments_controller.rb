@@ -1,6 +1,6 @@
 class CommentsController < ApplicationController
   before_action :set_comment, only: [:edit, :destroy]
-  before_action :require_login, only: [:edit, :update, :destroy]
+  before_action :require_login, only: [:create, :edit, :update, :destroy]
 
   def create
     @item = Item.find(params[:item_id])
@@ -37,6 +37,12 @@ class CommentsController < ApplicationController
 
   def set_comment
     @comment = Comment.find(params[:id])
+  end
+
+  def require_login
+    return if logged_in?
+
+    redirect_to login_path
   end
 
   def comment_params
